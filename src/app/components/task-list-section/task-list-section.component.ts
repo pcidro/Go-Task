@@ -1,10 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TaskCardComponent } from '../task-card/task-card.component';
+import { TaskService } from '../../services/task.service';
+import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDropList,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
+import { iTask } from '../../interfaces/task.interface';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-task-list-section',
-  imports: [TaskCardComponent],
+  imports: [TaskCardComponent, CdkDrag, CdkDropList, AsyncPipe],
   templateUrl: './task-list-section.component.html',
   styleUrl: './task-list-section.component.css',
 })
-export class TaskListSectionComponent {}
+export class TaskListSectionComponent {
+  readonly _taskService = inject(TaskService);
+
+  drop(event: CdkDragDrop<iTask[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
+  }
+}

@@ -1,31 +1,38 @@
 import { inject, Injectable } from '@angular/core';
-import { Dialog } from '@angular/cdk/dialog';
+import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { TaskFormModalComponent } from '../components/task-form-modal/task-form-modal.component';
 import { TasksCommentsModalComponent } from '../components/tasks-comments-modal/tasks-comments-modal.component';
+import { ItaskFormControls } from '../interfaces/task-form-controls.interface';
 @Injectable({
   providedIn: 'root',
 })
 export class ModalControllerService {
   private readonly _dialog = inject(Dialog);
+
   private readonly modalSizeOptions = {
     maxWidth: '620px',
     width: '95%',
   };
 
   openNewTaskModal() {
-    return this._dialog.open(TaskFormModalComponent, {
+    return this._dialog.open<ItaskFormControls>(TaskFormModalComponent, {
       ...this.modalSizeOptions,
       data: {
         mode: 'create',
+        formValues: {
+          name: '',
+          description: '',
+        },
       },
     });
   }
 
-  openEditTaskModal() {
-    return this._dialog.open(TaskFormModalComponent, {
+  openEditTaskModal(formValues: ItaskFormControls) {
+    return this._dialog.open<ItaskFormControls>(TaskFormModalComponent, {
       ...this.modalSizeOptions,
       data: {
         mode: 'edit',
+        formValues,
       },
     });
   }
