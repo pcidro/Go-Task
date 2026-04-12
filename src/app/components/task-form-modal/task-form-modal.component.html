@@ -1,7 +1,7 @@
 <form class="rounded-xl overflow-hidden bg-white">
   <div class="flex gap-1 items p-4">
     <img src="images/icon-new-task.svg" alt="create/edit icon">
-    <h1 class="font-semibold text-lg">Criar tarefa</h1>
+    <h1 class="font-semibold text-lg">{{_data.mode === 'create' ? 'Criar Tarefa' :'Editar Tarefa'}}</h1>
     <img class=" ml-auto cursor-pointer" src="images/icon-close.svg" alt="Close Icon">
   </div>
   <div class="p-4 border-y border-[#d1d5db] flex flex-col gap-4">
@@ -17,7 +17,7 @@
     </div>
     <div class="p-4 flex justify-end gap-2">
       <button class="py-3 px-4 bg-[#fafafa] rounded-xl text-sm font-semibold cursor-pointer active:translate-y-1 transition-transform duration-75" type="button">Cancelar</button>
-      <button class="py-3 px-4 bg-[#2a89ef] rounded-xl text-sm font-semibold cursor-pointer active:translate-y-1 transition-transform duration-75 shadow-md shadow-blue-500/50 text-white" type="submit">Criar uma tarefa</button>
+      <button class="py-3 px-4 bg-[#2a89ef] rounded-xl text-sm font-semibold cursor-pointer active:translate-y-1 transition-transform duration-75 shadow-md shadow-blue-500/50 text-white" type="submit">{{_data.mode === 'create' ? 'Criar uma tarefa' :'Salvar'}}</button>
     </div>
   </div>
 </form>
