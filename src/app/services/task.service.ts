@@ -5,6 +5,7 @@ import { ItaskFormControls } from '../interfaces/task-form-controls.interface';
 import { TaskStatusEnum } from '../enums/tasks-status.enum';
 import { generateUniqueIdWithTimeStamp } from '../utils/generate-unique-id-with-timestamp';
 import { TaskStatus } from '../types/tasks-status';
+import { iComment } from '../interfaces/comment.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -61,6 +62,48 @@ export class TaskService {
       currentTaskList.next([...currentTaskListWithoutTask]);
 
       nextTaskList.next([...nextTaskList.value, { ...currentTask }]);
+    }
+  }
+
+  updateTaskNameAndDescription(
+    taskId: string,
+    taskStatus: TaskStatus,
+    newTaskName: string,
+    nemTaskDescription: string,
+  ) {
+    const currentTaskList = this.getTaskListByStatus(taskStatus);
+
+    const currentTaskIndex = currentTaskList.value.findIndex(
+      (task) => task.id === taskId,
+    );
+
+    if (currentTaskIndex > -1) {
+      const updatedTaskList = [...currentTaskList.value];
+      updatedTaskList[currentTaskIndex] = {
+        ...updatedTaskList[currentTaskIndex],
+        name: newTaskName,
+        description: nemTaskDescription,
+      };
+      currentTaskList.next(updatedTaskList);
+    }
+  }
+
+  updateTaskComments(
+    taskId: string,
+    taskCurrentStatus: TaskStatus,
+    newTaskComments: iComment[],
+  ) {
+    const currentTaskList = this.getTaskListByStatus(taskCurrentStatus);
+    const currentTaskIndex = currentTaskList.value.findIndex(
+      (task) => task.id === taskId,
+    );
+    if (currentTaskIndex > -1) {
+      const updatedTaskComments = [...currentTaskList.value];
+      updatedTaskComments[currentTaskIndex] = {
+        ...updatedTaskComments[currentTaskIndex],
+        comments: [...newTaskComments],
+      };
+      currentTaskList.next(updatedTaskComments);
     }
   }
 
