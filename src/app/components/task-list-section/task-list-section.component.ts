@@ -9,13 +9,13 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { iTask } from '../../interfaces/task.interface';
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { TaskStatus } from '../../types/tasks-status';
 import { TaskStatusEnum } from '../../enums/tasks-status.enum';
 
 @Component({
   selector: 'app-task-list-section',
-  imports: [TaskCardComponent, CdkDrag, CdkDropList, AsyncPipe, JsonPipe],
+  imports: [TaskCardComponent, CdkDrag, CdkDropList, AsyncPipe],
   templateUrl: './task-list-section.component.html',
   styleUrl: './task-list-section.component.css',
 })
