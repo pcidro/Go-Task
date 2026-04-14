@@ -1,59 +1,73 @@
 # Gotask
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.9.
+Um gestor de tarefas estilo Kanban moderno, robusto e totalmente responsivo, focado em performance e reatividade. Este projeto utiliza o ecossistema avançado do Angular para gerenciar estados complexos e interações fluidas de arrastar e soltar.
 
-## Development server
+## Tecnologias e Ferramentas
 
-To start a local development server, run:
+- **Angular**: Utilização das funcionalidades mais recentes como (`@for`, `@if`, `@let`).
+- **RxJS & BehaviorSubject**: Gestão de estado reativa e centralizada
+- **Angular Material CDK**:
+  - `Drag and Drop`: Movimentação intuitiva de tarefas entre colunas.
+  - `Dialog (Modais)`: Gestão centralizada de janelas para criação, edição e comentários.
+- **Tailwind CSS**: Estilização utilitária com abordagem **Mobile First** e design totalmente responsivo.
+- **Reactive Forms**: Manipulação rigorosa de dados e validações de formulários.
 
-```bash
-ng serve
-```
+## Funcionalidades Principais
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Fluxo Kanban Completo**: Colunas para "A fazer", "Fazendo" e "Concluído".
+- **Persistência de Dados**: Integração com `localStorage` para que os dados não se percam ao atualizar a página.
+- **Gestão de Tarefas**: Criar, Editar e Eliminar tarefas com IDs únicos gerados por timestamp.
+- **Sistema de Comentários**: Possibilidade de adicionar múltiplos comentários a cada tarefa.
+- **Interface Reativa**: Uso de `Async Pipe` para subscrições automáticas e prevenção de memory leaks.
+- **Imutabilidade**: Implementação de `structuredClone` para garantir a integridade dos dados durante o fluxo de estado.
 
-## Code scaffolding
+## Arquitetura
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### 1. State Management (Serviço como Fonte da Verdade)
 
-```bash
-ng generate component component-name
-```
+O `TaskService` centraliza toda a lógica de negócio. Através de `BehaviorSubject`, o estado das tarefas é distribuído pela aplicação. Sempre que uma lista é emitida, o serviço salva automaticamente no `localStorage`
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### 2. Modais Descentralizados
 
-```bash
-ng generate --help
-```
+Utilização de um `ModalControllerService` que injeta o `Dialog` do CDK. Isto permite abrir formulários de criação, edição ou janelas de comentários de qualquer parte da aplicação de forma limpa e tipada.
 
-## Building
+### 3. Drag and Drop
 
-To build the project run:
+A implementação utiliza as diretivas `cdkDropList` e `cdkDrag`, permitindo a transferência de itens entre listas conectadas com atualização instantânea do estado no serviço.
 
-```bash
-ng build
-```
+### 4. UI/UX Responsiva
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Desenvolvido com Tailwind CSS, o quadro Kanban adapta-se a qualquer ecrã:
 
-## Running unit tests
+- **Mobile**: Scroll horizontal suave entre colunas.
+- **Desktop**: Visualização completa em grelha.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### Aprendizados
 
-```bash
-ng test
-```
+Este projeto foi uma excelente oportunidade para aprofundar conhecimentos em arquitetura de software e boas práticas com Angular.
 
-## Running end-to-end tests
+### 1. Reatividade e State Management
 
-For end-to-end (e2e) testing, run:
+O maior aprendizado foi implementar o padrão de Fonte Única de Verdade. Ao utilizar `BehaviorSubject` dentro de um serviço, garanti que o estado da aplicação fosse previsível. Fiz Uso do `structuredClone` e do operador `map` no RxJS para garantir que os componentes recebam cópias dos dados, mantendo a imutabilidade do estado original.
 
-```bash
-ng e2e
-```
+### 2. Ciclo de Vida e Performance com Async Pipe
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Optei pelo uso do `Async Pipe` em conjunto com o `@let`. Isso reduziu drasticamente a necessidade de gerenciar subscrições manualmente (`.subscribe()`), evitando vazamentos de memória (memory leaks) e tornando o código do template muito mais limpo e declarativo.
 
-## Additional Resources
+### 3. Manipulação Avançada de DOM com CDK
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+A implementação do `Drag and Drop` exigiu um entendimento claro de como o Angular material lida com listas conectadas. Foi necessário lógica extra no serviço para interceptar o evento de "drop" e sincronizar as mudanças visuais com a atualização do `localStorage`.
+
+### 4. Arquitetura de Modais
+
+Em vez de declarar modais dentro de cada componente, foi criado um **ModalControllerService**. Isso centralizou a configuração de estilo e a lógica de abertura, permitindo que a aplicação seja escalável e que novos modais sejam adicionados com poucas linhas de código.
+
+### Como Executar
+
+Instalar dependências:
+
+### npm install
+
+Executar o projeto:
+
+### ng serve
