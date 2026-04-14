@@ -6,9 +6,9 @@
   </div>
 
   <div class="border-t border-[#d1d5db] p-4">
-    <h1 class="mb-4 text-lg font-semibold">Tarefa</h1>
+    <h1 class="mb-4 text-lg font-semibold">{{_task.name}}</h1>
     <p class="mb-2 text-sm font-semibold">Descrição</p>
-    <p class="text-base font-normal text-[#374151]">Descrição da tarefa</p>
+    <p class="text-base font-normal text-[#374151]">{{_task.description}}</p>
   </div>
 
   <div class="p-4">
@@ -39,7 +39,7 @@
           </div>
           <div class="flex gap-4 mb-3">
             <p class="font-normal text-xs text-[#9ca3af]">Comentado há 10 min atrás</p>
-            <p class="font-semibold text-xs underline underline-offset-2">Apagar</p>
+            <p (click)="onRemoveComment(comment.id)" class="font-semibold text-xs underline underline-offset-2">Apagar</p>
           </div>
         </li>
         }

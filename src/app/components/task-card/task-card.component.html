@@ -1,16 +1,15 @@
 <div class="p-3 bg-[#fafafa] rounded-xl cursor-grab flex flex-col gap-3">
   <div class="flex gap-1">
-    <p class="font-bold">{{task.name}}</p>
-    <button class="self-start ml-auto cursor-pointer">
-      <img class="w-6" src="images/icon-delete.svg" alt="Icon-Delete">
-    </button>
+    <p [title]="task.name" class="font-bold">{{task.name.length < 13 ? task.name :(task.name | slice:0:20)+'...'}}</p>
+        <button class="self-start ml-auto cursor-pointer">
+          <img (click)="deleteTask()" class="w-6" src="images/icon-delete.svg" alt="Icon-Delete">
+        </button>
   </div>
-  <p class="font-light text-sm">
-    {{task.description}}
-  </p>
-  <div class="flex items-center gap-1">
-    <img src="images/icon-comments.svg" alt="Comentários-icon">
-    <p (click)="openTaskCommentsModal()" class="font-semibold text-xs text-[#2a89ef] underline underline-offset-2 cursor-pointer">{{task.comments.length}} Comentários</p>
-    <p (click)="handleEditClick()" class="font-semibold text-xs text-[#2a89ef] underline underline-offset-2 cursor-pointer ml-auto"> Editar</p>
-  </div>
+  <p [title]="task.description" class="font-light text-sm">
+    {{task.description.length < 13 ? task.description :(task.name | slice:0:20)+'...'}} </p>
+      <div class="flex items-center gap-1">
+        <img src="images/icon-comments.svg" alt="Comentários-icon">
+        <p (click)="openTaskCommentsModal()" class="font-semibold text-xs text-[#2a89ef] underline underline-offset-2 cursor-pointer">{{task.comments.length}} Comentários</p>
+        <p (click)="handleEditClick()" class="font-semibold text-xs text-[#2a89ef] underline underline-offset-2 cursor-pointer ml-auto"> Editar</p>
+      </div>
 </div>

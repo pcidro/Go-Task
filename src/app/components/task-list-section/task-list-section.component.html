@@ -2,9 +2,7 @@
 @let doingTasks = (this._taskService.doingTasks|async) ?? [];
 @let doneTasks = (this._taskService.doneTasks|async) ?? [];
 
-<p>TODO:{{this._taskService.todoTasks|async|json}}</p>
-<p>DOING:{{this._taskService.doingTasks|async|json}}</p>
-<p>DONE:{{this._taskService.doneTasks|async|json}}</p>
+
 
 <section class="flex overflow-auto scrollbar-hidden">
   <!-- Coluna a fazer -->
