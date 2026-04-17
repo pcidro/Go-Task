@@ -2,6 +2,8 @@
 
 Um gestor de tarefas estilo Kanban moderno, robusto e totalmente responsivo, focado em performance e reatividade. Este projeto utiliza o ecossistema avançado do Angular para gerenciar estados complexos e interações fluidas de arrastar e soltar.
 
+## Deploy Do Projeto: https://gootask.netlify.app/
+
 ## Tecnologias e Ferramentas
 
 - **Angular**: Utilização das funcionalidades mais recentes como (`@for`, `@if`, `@let`).
